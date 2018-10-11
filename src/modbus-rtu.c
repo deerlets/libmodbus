@@ -676,3 +676,16 @@ modbus_t* modbus_new_rtu(const char *device, uint8_t index,
 
     return ctx;
 }
+void modbus_rtu_lock(modbus_t *ctx)
+{
+    if(ctx->backend->backend_type != _MODBUS_BACKEND_TYPE_RTU)
+        return;
+    serial_lock(((modbus_rtu_t*)ctx->backend_data)->serial);
+}
+
+void modbus_rtu_unlock(modbus_t *ctx)
+{
+    if(ctx->backend->backend_type != _MODBUS_BACKEND_TYPE_RTU)
+        return;
+    serial_unlock(((modbus_rtu_t*)ctx->backend_data)->serial);
+}
