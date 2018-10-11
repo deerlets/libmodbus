@@ -269,7 +269,7 @@ static void _modbus_rtu_ioctl_rts(modbus_t *ctx, int on)
 
 static ssize_t _modbus_rtu_send(modbus_t *ctx, const uint8_t *req, int req_length)
 {
-    return serial_write(((modbus_rtu_t*)ctx->backend_data)->serial, req, req_length, ctx->response_timeout.tv_sec);
+    return serial_write(((modbus_rtu_t*)ctx->backend_data)->serial, req, req_length, ctx->response_timeout.tv_sec*1000);
 }
 
 static int _modbus_rtu_receive(modbus_t *ctx, uint8_t *req)
@@ -297,7 +297,7 @@ static int _modbus_rtu_receive(modbus_t *ctx, uint8_t *req)
 
 static ssize_t _modbus_rtu_recv(modbus_t *ctx, uint8_t *rsp, int rsp_length)
 {
-    return serial_read(((modbus_rtu_t*)ctx->backend_data)->serial, rsp, rsp_length, ctx->response_timeout.tv_sec);
+    return serial_read(((modbus_rtu_t*)ctx->backend_data)->serial, rsp, rsp_length, ctx->response_timeout.tv_sec*1000);
 }
 
 static int _modbus_rtu_flush(modbus_t *);
