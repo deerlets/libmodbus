@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.11)
+cmake_minimum_required(VERSION 3.10.3)
 project(libmodbus C)
 
 set(CMAKE_C_STANDARD 11)
@@ -6,6 +6,8 @@ set(CMAKE_C_STANDARD 11)
 include_directories(src)
 if (WIN32)
     include_directories(src/win32)
+else (!WIN32)
+    include_directories(./)
 endif ()
 
 add_library(modbus SHARED
